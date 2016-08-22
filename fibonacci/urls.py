@@ -1,11 +1,8 @@
-from django.conf.urls import *
+from django.conf.urls import url
 from django.contrib import admin
 
-urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'fibonacci.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('nthfibo.urls')),
-)
+]
