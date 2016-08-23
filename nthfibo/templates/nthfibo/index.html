@@ -3,16 +3,23 @@
 
 {% block content %}
 
-    <h1> Enter a number </h1>
+    <h2> Enter a number </h2>
     <form method='POST' class='' >{% csrf_token %}
 	{{ form.as_p }}
-        <button type='submit' class='btn btn-default'> Enter </button>
+        <button type='submit' class='btn btn-default'> Calculate </button>
     </form>    
     
 	{% if result %}
 	    <div>
 	    	Result is: {{ result }}
+		<br>
 		Time taken: {{ time }}
+    	    </div>
+	{% endif %}
+
+	{% if errormsg %}
+	    <div>
+	    	{{ errormsg }}
     	    </div>
 	{% endif %}
 
