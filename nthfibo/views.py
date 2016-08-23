@@ -14,25 +14,31 @@ def index(request):
 	    n = int(request.POST.get('n'))
 	    if n<=0:
 		msg="Try a positive integer"
-		return render(request, 'nthfibo/index.html', {'form': form, 'errormsg':msg})
-	    t1=time.time()
-	    result = fib_cache[n]
-	    t2=time.time()
-	    t=t2-t1
-     	    #print result
-	    #print t
+		
+	    elif n>6000000:
+		msg="Try a lower number"
+		
+	    elif n>1400:
+		msg="Out of range. displaying the number modulo 18446744073709551557"
+		t1=time.time()
+		result = fibln(n)
+		t2=time.time()
+		t=t2-t1
+		
+	    else:
+		t1=time.time()
+		result = fib_cache[n]
+		t2=time.time()
+		t=t2-t1
+	     	#print result
+		#print t
 	except:
-	    msg="Out of range. displaying the number modulo 18446744073709551557"
-	    t1=time.time()
-	    result = fibln(n)
-	    t2=time.time()
-	    t=t2-t1
-	    return render(request, 'nthfibo/index.html', {'form': form, 'errormsg':msg, 'result': result, 'time': t})
+	    	msg="Something went wrong"
 	    
     else:
 	form = NthfiboForm()
    
-    return render(request, 'nthfibo/index.html', {'form': form, 'result': result, 'time': t})
+    return render(request, 'nthfibo/index.html', {'form': form, 'result': result, 'time': t, 'errormsg':msg})
 
 def fibln(n):
 	M=18446744073709551557
