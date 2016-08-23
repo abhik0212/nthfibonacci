@@ -22,10 +22,24 @@ def index(request):
      	    #print result
 	    #print t
 	except:
-	    msg="Out of range"
+	    msg="Out of range. displaying the number modulo 18446744073709551557"
+	    t1=time.time()
+	    result = fibln(n)
+	    t2=time.time()
+	    t=t2-t1
+	    return render(request, 'nthfibo/index.html', {'form': form, 'errormsg':msg, 'result': result, 'time': t})
+	    
     else:
 	form = NthfiboForm()
-    if msg:
-	return render(request, 'nthfibo/index.html', {'form': form, 'errormsg':msg})
-    else:
-    	return render(request, 'nthfibo/index.html', {'form': form, 'result': result, 'time': t})
+   
+    return render(request, 'nthfibo/index.html', {'form': form, 'result': result, 'time': t})
+
+def fibln(n):
+	M=18446744073709551557
+	if n<= 1400:
+		return fib_cache[n]%M
+	k=n/2
+	if (n%2==0):
+		return (fibln(k)*fibln(k) + fibln(k-1)*fibln(k-1)) % M
+	else:
+		return (fibln(k)*fibln(k+1) + fibln(k-1)*fibln(k)) % M;
